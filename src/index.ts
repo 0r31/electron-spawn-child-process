@@ -10,7 +10,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 let mainWindow: BrowserWindow
 
 function handleWifiConnnect(event: IpcMainInvokeEvent) {
-    const child = spawn('sudo', [`${process.env.INIT_CWD}/src/scripts/wifi-connect`]);
+    const child = spawn('sudo', ['wifi-connect']);
     child.stdout.on('data', (data: string) => {
       //data.setEncoding('utf8')
       const value = `stdout: ${data}`
