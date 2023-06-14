@@ -3,9 +3,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('myAPI', {
-  sendPing: () => ipcRenderer.send('ping'),
-  handlePong: (func: (event: any, arg: any) => void) => ipcRenderer.on('pong', func),
-  sendCommand: () => ipcRenderer.send('command'),
+  sendWifiConnect: () => ipcRenderer.send('wifi-connect'),
   handleStdout: (func: (event: any, arg: any) => void) => ipcRenderer.on('stdout', func),
   handleStderr: (func: (event: any, arg: any) => void) => ipcRenderer.on('stderr', func),
   handleExit: (func: (event: any, arg: any) => void) => ipcRenderer.on('exit', func),

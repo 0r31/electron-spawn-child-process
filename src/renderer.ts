@@ -27,9 +27,7 @@
  */
 
 export interface IMyAPI {
-  sendPing: () => void,
-  handlePong: (func: (event: any, arg: any) => void) => void,
-  sendCommand: () => void,
+  sendWifiConnect: () => void,
   handleStdout: (func: (event: any, arg: any) => void) => void,
   handleStderr: (func: (event: any, arg: any) => void) => void,
   handleExit: (func: (event: any, arg: any) => void) => void,
@@ -41,39 +39,34 @@ declare global {
   }
 }
 
-import './index.css';
+import './index.css'
 
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
+console.log('👋 This message is being logged by "renderer.js", included via webpack')
 
-function sendPing() {
-  window.myAPI.sendPing()
-}
-
-window.myAPI.handlePong((event, value) => {
-  console.log('Renderer process received pong')
-  //event.sender.send('pong', 'pong')
-})
-
-async function sendCommand() {
-  window.myAPI.sendCommand()
-}
+const execwificonnect = document.getElementById('execwificonnect')
+const content = document.getElementById('content')
 
 window.myAPI.handleStdout((event, value) => {
-  console.log('********* Begin *********')
   console.log(value)
-  console.log('********* End *********')
+  const p = document.createElement("p")
+  p.innerHTML = value
+  content.append(p)
 })
 
 window.myAPI.handleStderr((event, value) => {
   console.log(value)
+  const p = document.createElement("p")
+  //p.style.color = "red"
+  p.innerHTML = value
+  content.append(p)
 })
 
 window.myAPI.handleExit((event, value) => {
   console.log(value)
+  const p = document.createElement("p")
+  //p.style.textDecoration = "italic"
+  p.innerHTML = value
+  content.append(p)
 })
 
-const pingpong = document.getElementById('pingpong')
-const execcommand = document.getElementById('execcommand')
-
-pingpong.addEventListener('click', sendPing)
-execcommand.addEventListener('click', sendCommand)
+execwificonnect.addEventListener('click', window.myAPI.sendWifiConnect)
